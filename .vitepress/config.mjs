@@ -55,6 +55,11 @@ export default defineConfig({
         activeMatch: '/docs/article/',
       },
       {
+        text: '面试题',
+        link: '/docs/interview/html',
+        activeMatch: '/docs/interview/',
+      },
+      {
         text: '组件',
         activeMatch: '/docs/components/',
         items: [
@@ -128,6 +133,25 @@ export default defineConfig({
             { text: '前端页面导出下载实现', link: '/docs/article/前端页面导出下载实现' },
             { text: '使用codeMirror编辑JSON', link: '/docs/article/使用codeMirror编辑JSON' },
             { text: 'axios封装和使用', link: '/docs/article/axios封装和使用' },
+          ],
+        },
+      ],
+      '/docs/interview/': [
+        {
+          text: '基础',
+          items: [
+            { text: 'HTML', link: '/docs/interview/html' },
+            { text: 'CSS', link: '/docs/interview/css' },
+            { text: 'JavaScript', link: '/docs/interview/javascript' },
+          ],
+        },
+        {
+          text: '进阶',
+          items: [
+            { text: 'Vue', link: '/docs/interview/vue' },
+            { text: '网络', link: '/docs/interview/网络' },
+            { text: '性能优化', link: '/docs/interview/性能优化' },
+            { text: '安全', link: '/docs/interview/安全' },
           ],
         },
       ],

@@ -24,5 +24,9 @@ export default defineConfig({
     alias: {
       '@': path.join(__dirname, 'src')
     }
+  },
+  server: {
+    port: 5888,
+    host: '0.0.0.0'
   }
 })
