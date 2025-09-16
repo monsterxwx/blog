@@ -143,12 +143,14 @@ export default defineConfig({
             { text: 'HTML', link: '/docs/interview/html' },
             { text: 'CSS', link: '/docs/interview/css' },
             { text: 'JavaScript', link: '/docs/interview/javascript' },
+            { text: 'ES6', link: '/docs/interview/es6' },
           ],
         },
         {
           text: '进阶',
           items: [
             { text: 'Vue', link: '/docs/interview/vue' },
+            { text: 'Vue3', link: '/docs/interview/vue3' },
             { text: '网络', link: '/docs/interview/网络' },
             { text: '性能优化', link: '/docs/interview/性能优化' },
             { text: '安全', link: '/docs/interview/安全' },
