@@ -921,3 +921,1208 @@ let getTempItem = id => ({ id: id, name: "Temp" });
 - 不可以当作构造函数，也就是说，不可以使用`new`命令，否则会抛出一个错误
 - 不可以使用`arguments`对象，该对象在函数体内不存在。如果要用，可以用 `rest` 参数代替
 - 不可以使用`yield`命令，因此箭头函数不能用作 Generator 函数
+
+## 你是怎么理解ES6新增Set、Map两种数据结构的？
+
+`Set`是一种叫做集合的数据结构，`Map`是一种叫做字典的数据结构
+
+什么是集合？什么又是字典？
+
+- 集合  
+是由一堆无序的、相关联的，且不重复的内存结构【数学中称为元素】组成的组合
+
+- 字典
+是一些元素的集合。每个元素有一个称作key 的域，不同元素的key 各不相同
+
+区别？
+
+- 共同点：集合、字典都可以存储不重复的值
+- 不同点：集合是以[值，值]的形式存储元素，字典是以[键，值]的形式存储
+
+### 一、Set
+
+`Set`是`es6`新增的数据结构，类似于数组，但是成员的值都是唯一的，没有重复的值，我们一般称为集合
+
+`Set`本身是一个构造函数，用来生成 Set 数据结构
+
+```js
+const s = new Set();
+```
+
+#### 增删改查
+
+`Set`的实例关于增删改查的方法：
+
+- add()
+- delete()
+
+- has()
+- clear()
+
+##### add()
+
+添加某个值，返回 `Set` 结构本身
+
+当添加实例中已经存在的元素，`set`不会进行处理添加
+
+```js
+s.add(1).add(2).add(2); // 2只被添加了一次
+```
+
+##### delete()
+
+删除某个值，返回一个布尔值，表示删除是否成功
+
+```js
+s.delete(1)
+```
+
+##### has()
+
+返回一个布尔值，判断该值是否为`Set`的成员
+
+```js
+s.has(2)
+```
+
+##### clear()
+
+清除所有成员，没有返回值
+
+```js
+s.clear()
+```
+
+#### 遍历
+
+`Set`实例遍历的方法有如下：
+
+关于遍历的方法，有如下：
+
+- keys()：返回键名的遍历器
+- values()：返回键值的遍历器
+- entries()：返回键值对的遍历器
+- forEach()：使用回调函数遍历每个成员
+
+`Set`的遍历顺序就是插入顺序
+
+`keys`方法、`values`方法、`entries`方法返回的都是遍历器对象
+
+```javascript
+let set = new Set(['red', 'green', 'blue']);
+
+for (let item of set.keys()) {
+  console.log(item);
+}
+// red
+// green
+// blue
+
+for (let item of set.values()) {
+  console.log(item);
+}
+// red
+// green
+// blue
+
+for (let item of set.entries()) {
+  console.log(item);
+}
+// ["red", "red"]
+// ["green", "green"]
+// ["blue", "blue"]
+```
+
+`forEach()`用于对每个成员执行某种操作，没有返回值，键值、键名都相等，同样的`forEach`方法有第二个参数，用于绑定处理函数的`this`
+
+```javascript
+let set = new Set([1, 4, 9]);
+set.forEach((value, key) => console.log(key + ' : ' + value))
+// 1 : 1
+// 4 : 4
+// 9 : 9
+```
+
+扩展运算符和`Set` 结构相结合实现数组或字符串去重
+
+```javascript
+// 数组
+let arr = [3, 5, 2, 2, 5, 5];
+let unique = [...new Set(arr)]; // [3, 5, 2]
+
+// 字符串
+let str = "352255";
+let unique = [...new Set(str)].join(""); // "352"
+```
+
+实现并集、交集、和差集
+
+```javascript
+let a = new Set([1, 2, 3]);
+let b = new Set([4, 3, 2]);
+
+// 并集
+let union = new Set([...a, ...b]);
+// Set {1, 2, 3, 4}
+
+// 交集
+let intersect = new Set([...a].filter(x => b.has(x)));
+// set {2, 3}
+
+// （a 相对于 b 的）差集
+let difference = new Set([...a].filter(x => !b.has(x)));
+// Set {1}
+```
+
+### 二、Map
+
+`Map`类型是键值对的有序列表，而键和值都可以是任意类型
+
+`Map`本身是一个构造函数，用来生成 `Map` 数据结构
+
+```js
+const m = new Map()
+```
+
+#### 增删改查
+
+`Map` 结构的实例针对增删改查有以下属性和操作方法：
+
+- size 属性
+- set()
+- get()
+- has()
+- delete()
+- clear()
+
+##### size
+
+`size`属性返回 Map 结构的成员总数。
+
+```javascript
+const map = new Map();
+map.set('foo', true);
+map.set('bar', false);
+
+map.size // 2
+```
+
+##### set()
+
+设置键名`key`对应的键值为`value`，然后返回整个 Map 结构
+
+如果`key`已经有值，则键值会被更新，否则就新生成该键
+
+同时返回的是当前`Map`对象，可采用链式写法
+
+```javascript
+const m = new Map();
+
+m.set('edition', 6)        // 键是字符串
+m.set(262, 'standard')     // 键是数值
+m.set(undefined, 'nah')    // 键是 undefined
+m.set(1, 'a').set(2, 'b').set(3, 'c') // 链式操作
+```
+
+##### get()
+
+`get`方法读取`key`对应的键值，如果找不到`key`，返回`undefined`
+
+```javascript
+const m = new Map();
+
+const hello = function() {console.log('hello');};
+m.set(hello, 'Hello ES6!') // 键是函数
+
+m.get(hello)  // Hello ES6!
+```
+
+##### has()
+
+`has`方法返回一个布尔值，表示某个键是否在当前 Map 对象之中
+
+```javascript
+const m = new Map();
+
+m.set('edition', 6);
+m.set(262, 'standard');
+m.set(undefined, 'nah');
+
+m.has('edition')     // true
+m.has('years')       // false
+m.has(262)           // true
+m.has(undefined)     // true
+```
+
+##### delete()
+
+`delete`方法删除某个键，返回`true`。如果删除失败，返回`false`
+
+```javascript
+const m = new Map();
+m.set(undefined, 'nah');
+m.has(undefined)     // true
+
+m.delete(undefined)
+m.has(undefined)       // false
+```
+
+##### clear()
+
+`clear`方法清除所有成员，没有返回值
+
+```javascript
+let map = new Map();
+map.set('foo', true);
+map.set('bar', false);
+
+map.size // 2
+map.clear()
+map.size // 0
+```
+
+#### 遍历
+
+`Map`结构原生提供三个遍历器生成函数和一个遍历方法：
+
+- keys()：返回键名的遍历器
+- values()：返回键值的遍历器
+- entries()：返回所有成员的遍历器
+- forEach()：遍历 Map 的所有成员
+
+遍历顺序就是插入顺序
+
+```javascript
+const map = new Map([
+  ['F', 'no'],
+  ['T',  'yes'],
+]);
+
+for (let key of map.keys()) {
+  console.log(key);
+}
+// "F"
+// "T"
+
+for (let value of map.values()) {
+  console.log(value);
+}
+// "no"
+// "yes"
+
+for (let item of map.entries()) {
+  console.log(item[0], item[1]);
+}
+// "F" "no"
+// "T" "yes"
+
+// 或者
+for (let [key, value] of map.entries()) {
+  console.log(key, value);
+}
+// "F" "no"
+// "T" "yes"
+
+// 等同于使用map.entries()
+for (let [key, value] of map) {
+  console.log(key, value);
+}
+// "F" "no"
+// "T" "yes"
+
+map.forEach(function(value, key, map) {
+  console.log("Key: %s, Value: %s", key, value);
+});
+```
+
+### 三、WeakSet 和 WeakMap
+
+#### WeakSet
+
+创建`WeakSet`实例
+
+```js
+const ws = new WeakSet();
+```
+
+`WeakSet`可以接受一个具有 `Iterable`接口的对象作为参数
+
+```js
+const a = [[1, 2], [3, 4]];
+const ws = new WeakSet(a);
+// WeakSet {[1, 2], [3, 4]}
+```
+
+在`API`中`WeakSet`与`Set`有两个区别：
+
+- 没有遍历操作的`API`
+- 没有`size`属性
+
+`WeakSet`只能成员只能是引用类型，而不能是其他类型的值
+
+```js
+let ws=new WeakSet();
+
+// 成员不是引用类型
+let weakSet=new WeakSet([2,3]);
+console.log(weakSet) // 报错
+
+// 成员为引用类型
+let obj1={name:1}
+let obj2={name:1}
+let ws=new WeakSet([obj1,obj2]); 
+console.log(ws) //WeakSet {{…}, {…}}
+```
+
+`WeakSet`里面的引用只要在外部消失，它在 `WeakSet`里面的引用就会自动消失
+
+#### WeakMap
+
+`WeakMap`结构与`Map`结构类似，也是用于生成键值对的集合
+
+在`API`中`WeakMap`与`Map`有两个区别：
+
+- 没有遍历操作的`API`
+- 没有`clear`清空方法
+
+```javascript
+// WeakMap 可以使用 set 方法添加成员
+const wm1 = new WeakMap();
+const key = {foo: 1};
+wm1.set(key, 2);
+wm1.get(key) // 2
+
+// WeakMap 也可以接受一个数组，
+// 作为构造函数的参数
+const k1 = [1, 2, 3];
+const k2 = [4, 5, 6];
+const wm2 = new WeakMap([[k1, 'foo'], [k2, 'bar']]);
+wm2.get(k2) // "bar"
+```
+
+`WeakMap`只接受对象作为键名（`null`除外），不接受其他类型的值作为键名
+
+```javascript
+const map = new WeakMap();
+map.set(1, 2)
+// TypeError: 1 is not an object!
+map.set(Symbol(), 2)
+// TypeError: Invalid value used as weak map key
+map.set(null, 2)
+// TypeError: Invalid value used as weak map key
+```
+
+`WeakMap`的键名所指向的对象，一旦不再需要，里面的键名对象和所对应的键值对会自动消失，不用手动删除引用
+
+举个场景例子：
+
+在网页的 DOM 元素上添加数据，就可以使用`WeakMap`结构，当该 DOM 元素被清除，其所对应的`WeakMap`记录就会自动被移除
+
+```javascript
+const wm = new WeakMap();
+
+const element = document.getElementById('example');
+
+wm.set(element, 'some information');
+wm.get(element) // "some information"
+```
+
+注意：`WeakMap` 弱引用的只是键名，而不是键值。键值依然是正常引用
+
+下面代码中，键值`obj`会在`WeakMap`产生新的引用，当你修改`obj`不会影响到内部
+
+```js
+const wm = new WeakMap();
+let key = {};
+let obj = {foo: 1};
+
+wm.set(key, obj);
+obj = null;
+wm.get(key)
+// Object {foo: 1}
+```
+
+## map和weakMap的区别
+
+它们是 `JavaScript` 中的两种不同的键值对集合，主要区别如下：
+
+1. `map`的键可以是任意类型，`weakMap`键只能是对象类型。
+2. `map` 使用常规的引用来管理键和值之间的关系，因此即使键不再使用，`map` 仍然会保留该键的内存。`weakMap` 使用弱引用来管理键和值之间的关系，因此如果键不再有其他引用，垃圾回收机制可以自动回收键值对。
+
+## 对 rest 参数的理解
+
+扩展运算符被用在函数形参上时，**它还可以把一个分离的参数序列整合成一个数组**：
+
+```jsx
+
+javascript复制代码
+function mutiple(...args) {
+  let result = 1;
+  for (var val of args) {
+    result *= val;
+  }
+  return result;
+}
+mutiple(1, 2, 3, 4) // 24
+```
+
+这里，传入 mutiple 的是四个分离的参数，但是如果在 mutiple 函数里尝试输出 args 的值，会发现它是一个数组：
+
+```jsx
+
+javascript复制代码
+function mutiple(...args) {
+  console.log(args)
+}
+mutiple(1, 2, 3, 4) // [1, 2, 3, 4]
+```
+
+这就是 … rest运算符的又一层威力了，它可以把函数的多个入参收敛进一个数组里。这一点**经常用于获取函数的多余参数，或者像上面这样处理函数参数个数不确定的情况。**
+
+## 你是怎么理解ES6中 Promise的？使用场景？
+
+`Promise`是异步编程的一种解决方案，将异步操作以同步操作的流程表达出来，避免了地狱回调。
+
+`Promise`的实例有三个状态:
+
+- `Pending`（初始状态）
+- `Fulfilled`（成功状态）
+- `Rejected`（失败状态）
+
+`Promise`的实例有两个过程：
+
+- `pending` -> `fulfilled` : **Resolved（已完成）**
+- `pending` -> `rejected`：**Rejected（已拒绝）**
+
+    注意：一旦从进行状态变成为其他状态就永远不能更改状态了，其过程是不可逆的。
+
+`Promise`构造函数接收一个带有`resolve`和`reject`参数的回调函数。
+
+- `resolve`的作用是将`Promise`状态从`pending`变为`fulfilled`，在异步操作成功时调用，并将异步结果返回，作为参数传递出去
+- `reject`的作用是将`Promise`状态从`pending`变为`rejected`，在异步操作失败后，将异步操作错误的结果，作为参数传递出去
+
+`Promise`的缺点：
+
+- 无法取消 `Promise`，一旦新建它就会立即执行，无法中途取消。
+- 如果不设置回调函数，`Promise`内部抛出的错误，不会反应到外部。
+- 当处于`pending`状态时，无法得知目前进展到哪一个阶段（刚刚开始还是即将完成）。
+
+Promise方法
+
+- `promise.then()` 对应`resolve`成功的处理
+- `promise.catch()`对应`reject`失败的处理
+- `promise.all()`可以完成并行任务，将多个`Promise`实例数组，包装成一个新的`Promise`实例，返回的实例就是普通的`Promise`。有一个失败，代表该`Primise`失败。当所有的子`Promise`完成，返回值时全部值的数组
+- `promise.race()`类似`promise.all()`，区别在于有任意一个完成就算完成
+- `promise.allSettled()` 返回一个在所有给定的 `promise` 都已经 `fulfilled` 或 `rejected` 后的 `promise` ，并带有一个对象数组，每个对象表示对应的`promise` 结果。
+
+promise.all 和 promise.allsettled 区别
+
+`Promise.all()` 和 `Promise.allSettled()` 都是用来处理多个 `Promise` 实例的方法，它们的区别在于以下几点：
+
+- **all:** 只有当所有`Promise`实例都`resolve`后，才会`resolve`返回一个由所有`Promise`返回值组成的数组。如果有一个`Promise`实例`reject`，就会立即被拒绝，并返回拒绝原因。`all`是团队的成功才算，如果有一个人失败就算失败。
+- **allSettled：** 等所有`Promise`执行完毕后，不管成功或失败， 都会吧每个`Promise`状态信息放到一个数组里面返回。
+
+promise 和 async await 有什么区别
+
+- 建立在 promise 之上。所以，不能把它和回调函数搭配使用。但它会声明一个异步函数，并隐式地返回一个 Promise。因此可以直接 return 变量，无需使用 Promise.resolve 进行转换。
+- 和 promise 一样，是非阻塞的。但不用写 then 及其回调函数，这减少代码行数，也避免了代码嵌套。而且，所有异步调用，可以写在同一个代码块中，无需定义多余的中间变量。
+- 它的最大价值在于，可以使异步代码，在形式上，更接近于同步代码。
+- 它总是与 await 一起使用的。并且，await 只能在 async 函数体内。
+- await 是个运算符，用于组成表达式，它会阻塞后面的代码。如果等到的是 Promise 对象，则得到其 resolve 值。否则，会得到一个表达式的运算结果。
+
+相比于 Promise，async await 能更好地处理 then 链
+
+### 一、介绍
+
+`Promise`，译为承诺，是异步编程的一种解决方案，比传统的解决方案（回调函数）更加合理和更加强大
+
+在以往我们如果处理多层异步操作，我们往往会像下面那样编写我们的代码
+
+```js
+doSomething(function(result) {
+  doSomethingElse(result, function(newResult) {
+    doThirdThing(newResult, function(finalResult) {
+      console.log('得到最终结果: ' + finalResult);
+    }, failureCallback);
+  }, failureCallback);
+}, failureCallback);
+```
+
+阅读上面代码，是不是很难受，上述形成了经典的回调地狱
+
+现在通过`Promise`的改写上面的代码
+
+```js
+doSomething().then(function(result) {
+  return doSomethingElse(result);
+})
+.then(function(newResult) {
+  return doThirdThing(newResult);
+})
+.then(function(finalResult) {
+  console.log('得到最终结果: ' + finalResult);
+})
+.catch(failureCallback);
+```
+
+瞬间感受到`promise`解决异步操作的优点：
+
+- 链式操作减低了编码难度
+- 代码可读性明显增强
+
+下面我们正式来认识`promise`：
+
+#### 状态
+
+`promise`对象仅有三种状态
+
+- `pending`（进行中）
+- `fulfilled`（已成功）
+- `rejected`（已失败）
+
+#### 特点
+
+- 对象的状态不受外界影响，只有异步操作的结果，可以决定当前是哪一种状态
+- 一旦状态改变（从`pending`变为`fulfilled`和从`pending`变为`rejected`），就不会再变，任何时候都可以得到这个结果
+
+### 二、用法
+
+`Promise`对象是一个构造函数，用来生成`Promise`实例
+
+```javascript
+const promise = new Promise(function(resolve, reject) {});
+```
+
+`Promise`构造函数接受一个函数作为参数，该函数的两个参数分别是`resolve`和`reject`
+
+- `resolve`函数的作用是，将`Promise`对象的状态从“未完成”变为“成功”
+- `reject`函数的作用是，将`Promise`对象的状态从“未完成”变为“失败”
+
+#### 实例方法
+
+`Promise`构建出来的实例存在以下方法：
+
+- then()
+- catch()
+- finally()
+
+##### then()
+
+`then`是实例状态发生改变时的回调函数，第一个参数是`resolved`状态的回调函数，第二个参数是`rejected`状态的回调函数
+
+`then`方法返回的是一个新的`Promise`实例，也就是`promise`能链式书写的原因
+
+```javascript
+getJSON("/posts.json").then(function(json) {
+  return json.post;
+}).then(function(post) {
+  // ...
+});
+```
+
+##### catch
+
+`catch()`方法是`.then(null, rejection)`或`.then(undefined, rejection)`的别名，用于指定发生错误时的回调函数
+
+```javascript
+getJSON('/posts.json').then(function(posts) {
+  // ...
+}).catch(function(error) {
+  // 处理 getJSON 和 前一个回调函数运行时发生的错误
+  console.log('发生错误！', error);
+});
+```
+
+`Promise`对象的错误具有“冒泡”性质，会一直向后传递，直到被捕获为止
+
+```javascript
+getJSON('/post/1.json').then(function(post) {
+  return getJSON(post.commentURL);
+}).then(function(comments) {
+  // some code
+}).catch(function(error) {
+  // 处理前面三个Promise产生的错误
+});
+```
+
+一般来说，使用`catch`方法代替`then()`第二个参数
+
+`Promise`对象抛出的错误不会传递到外层代码，即不会有任何反应
+
+```js
+const someAsyncThing = function() {
+  return new Promise(function(resolve, reject) {
+    // 下面一行会报错，因为x没有声明
+    resolve(x + 2);
+  });
+};
+```
+
+浏览器运行到这一行，会打印出错误提示`ReferenceError: x is not defined`，但是不会退出进程
+
+`catch()`方法之中，还能再抛出错误，通过后面`catch`方法捕获到
+
+##### finally()
+
+`finally()`方法用于指定不管 Promise 对象最后状态如何，都会执行的操作
+
+```javascript
+promise
+.then(result => {···})
+.catch(error => {···})
+.finally(() => {···});
+```
+
+#### 构造函数方法
+
+`Promise`构造函数存在以下方法：
+
+- all()
+- race()
+- allSettled()
+- resolve()
+- reject()
+- try()
+
+##### all()
+
+`Promise.all()`方法用于将多个 `Promise`实例，包装成一个新的 `Promise`实例
+
+```javascript
+const p = Promise.all([p1, p2, p3]);
+```
+
+接受一个数组（迭代对象）作为参数，数组成员都应为`Promise`实例
+
+实例`p`的状态由`p1`、`p2`、`p3`决定，分为两种：
+
+- 只有`p1`、`p2`、`p3`的状态都变成`fulfilled`，`p`的状态才会变成`fulfilled`，此时`p1`、`p2`、`p3`的返回值组成一个数组，传递给`p`的回调函数
+- 只要`p1`、`p2`、`p3`之中有一个被`rejected`，`p`的状态就变成`rejected`，此时第一个被`reject`的实例的返回值，会传递给`p`的回调函数
+
+注意，如果作为参数的 `Promise` 实例，自己定义了`catch`方法，那么它一旦被`rejected`，并不会触发`Promise.all()`的`catch`方法
+
+```javascript
+const p1 = new Promise((resolve, reject) => {
+  resolve('hello');
+})
+.then(result => result)
+.catch(e => e);
+
+const p2 = new Promise((resolve, reject) => {
+  throw new Error('报错了');
+})
+.then(result => result)
+.catch(e => e);
+
+Promise.all([p1, p2])
+.then(result => console.log(result))
+.catch(e => console.log(e));
+// ["hello", Error: 报错了]
+```
+
+如果`p2`没有自己的`catch`方法，就会调用`Promise.all()`的`catch`方法
+
+```javascript
+const p1 = new Promise((resolve, reject) => {
+  resolve('hello');
+})
+.then(result => result);
+
+const p2 = new Promise((resolve, reject) => {
+  throw new Error('报错了');
+})
+.then(result => result);
+
+Promise.all([p1, p2])
+.then(result => console.log(result))
+.catch(e => console.log(e));
+// Error: 报错了
+```
+
+##### race()
+
+`Promise.race()`方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例
+
+```javascript
+const p = Promise.race([p1, p2, p3]);
+```
+
+只要`p1`、`p2`、`p3`之中有一个实例率先改变状态，`p`的状态就跟着改变
+
+率先改变的 Promise 实例的返回值则传递给`p`的回调函数
+
+```javascript
+const p = Promise.race([
+  fetch('/resource-that-may-take-a-while'),
+  new Promise(function (resolve, reject) {
+    setTimeout(() => reject(new Error('request timeout')), 5000)
+  })
+]);
+
+p
+.then(console.log)
+.catch(console.error);
+```
+
+##### allSettled()
+
+`Promise.allSettled()`方法接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例
+
+只有等到所有这些参数实例都返回结果，不管是`fulfilled`还是`rejected`，包装实例才会结束
+
+```javascript
+const promises = [
+  fetch('/api-1'),
+  fetch('/api-2'),
+  fetch('/api-3'),
+];
+
+await Promise.allSettled(promises);
+removeLoadingIndicator();
+```
+
+##### resolve()
+
+将现有对象转为 `Promise`对象
+
+```javascript
+Promise.resolve('foo')
+// 等价于
+new Promise(resolve => resolve('foo'))
+```
+
+参数可以分成四种情况，分别如下：
+
+- 参数是一个 Promise 实例，`promise.resolve`将不做任何修改、原封不动地返回这个实例
+- 参数是一个`thenable`对象，`promise.resolve`会将这个对象转为 `Promise`对象，然后就立即执行`thenable`对象的`then()`方法
+- 参数不是具有`then()`方法的对象，或根本就不是对象，`Promise.resolve()`会返回一个新的 Promise 对象，状态为`resolved`
+- 没有参数时，直接返回一个`resolved`状态的 Promise 对象
+
+##### reject()
+
+`Promise.reject(reason)`方法也会返回一个新的 Promise 实例，该实例的状态为`rejected`
+
+```javascript
+const p = Promise.reject('出错了');
+// 等同于
+const p = new Promise((resolve, reject) => reject('出错了'))
+
+p.then(null, function (s) {
+  console.log(s)
+});
+// 出错了
+```
+
+`Promise.reject()`方法的参数，会原封不动地变成后续方法的参数
+
+```javascript
+Promise.reject('出错了')
+.catch(e => {
+  console.log(e === '出错了')
+})
+// true
+```
+
+### 三、使用场景
+
+将图片的加载写成一个`Promise`，一旦加载完成，`Promise`的状态就发生变化
+
+```javascript
+const preloadImage = function (path) {
+  return new Promise(function (resolve, reject) {
+    const image = new Image();
+    image.onload  = resolve;
+    image.onerror = reject;
+    image.src = path;
+  });
+};
+```
+
+通过链式操作，将多个渲染数据分别给个`then`，让其各司其职。或当下个异步请求依赖上个请求结果的时候，我们也能够通过链式操作友好解决问题
+
+```js
+// 各司其职
+getInfo().then(res=>{
+    let { bannerList } = res
+    //渲染轮播图
+    console.log(bannerList)
+    return res
+}).then(res=>{
+    
+    let { storeList } = res
+    //渲染店铺列表
+    console.log(storeList)
+    return res
+}).then(res=>{
+    let { categoryList } = res
+    console.log(categoryList)
+    //渲染分类列表
+    return res
+})
+```
+
+通过`all()`实现多个请求合并在一起，汇总所有请求结果，只需设置一个`loading`即可
+
+```js
+function initLoad(){
+    // loading.show() //加载loading
+    Promise.all([getBannerList(),getStoreList(),getCategoryList()]).then(res=>{
+        console.log(res)
+        loading.hide() //关闭loading
+    }).catch(err=>{
+        console.log(err)
+        loading.hide()//关闭loading
+    })
+}
+//数据初始化    
+initLoad()
+```
+
+通过`race`可以设置图片请求超时
+
+```js
+//请求某个图片资源
+function requestImg(){
+    var p = new Promise(function(resolve, reject){
+        var img = new Image();
+        img.onload = function(){
+           resolve(img);
+        }
+        //img.src = "https://b-gold-cdn.xitu.io/v3/static/img/logo.a7995ad.svg"; 正确的
+        img.src = "https://b-gold-cdn.xitu.io/v3/static/img/logo.a7995ad.svg1";
+    });
+    return p;
+}
+
+//延时函数，用于给请求计时
+function timeout(){
+    var p = new Promise(function(resolve, reject){
+        setTimeout(function(){
+            reject('图片请求超时');
+        }, 5000);
+    });
+    return p;
+}
+
+Promise
+.race([requestImg(), timeout()])
+.then(function(results){
+    console.log(results);
+})
+.catch(function(reason){
+    console.log(reason);
+});
+```
+
+## 对 async、await 的理解，内部原理
+
+`async/await`其实**是Generator 的语法糖**，它能实现的效果都能用`then`链来实现，它是为优化`then`链而开发出来的。通过`async`关键字声明一个异步函数， `await` 用于等待一个异步方法执行完成，**并且会阻塞执行**。
+`async` 函数**返回的是一个 Promise 对象**，如果在函数中 `return` 一个变量，`async` 会把这个直接量通过 `Promise.resolve()` 封装成 `Promise` 对象。如果没有返回值，返回 `Promise.resolve(undefined)`
+
+**内部原理**
+
+generator 函数跟普通函数在写法上的区别就是，多了一个星号*，并且只有在 generator 函数中才能使用 yield，yield 相当于 generator 函数执行的中途暂停点，暂停后继续走就得使用到 next 方法，next 方法执行后会返回一个对象，对象中有 value 和 done 两个属性
+
+- value：暂停点后面接的值，也就是 yield 后面接的值
+- done：是否 generator 函数已走完，没走完为 false，走完为 true
+
+## 你是怎么理解ES6中 Generator的？使用场景？
+
+### 一、介绍
+
+Generator 函数是 ES6 提供的一种异步编程解决方案，语法行为与传统函数完全不同
+
+回顾下上文提到的解决异步的手段：
+
+- 回调函数
+- promise
+
+那么，上文我们提到`promsie`已经是一种比较流行的解决异步方案，那么为什么还出现`Generator`？甚至`async/await`呢？
+
+该问题我们留在后面再进行分析，下面先认识下`Generator`
+
+Generator函数
+
+执行 `Generator` 函数会返回一个遍历器对象，可以依次遍历 `Generator` 函数内部的每一个状态
+
+形式上，`Generator`函数是一个普通函数，但是有两个特征：
+
+- `function`关键字与函数名之间有一个星号
+- 函数体内部使用`yield`表达式，定义不同的内部状态
+
+```javascript
+function* helloWorldGenerator() {
+  yield 'hello';
+  yield 'world';
+  return 'ending';
+}
+```
+
+### 二、使用
+
+`Generator` 函数会返回一个遍历器对象，即具有`Symbol.iterator`属性，并且返回给自己
+
+```javascript
+function* gen(){
+  // some code
+}
+
+var g = gen();
+
+g[Symbol.iterator]() === g
+// true
+```
+
+通过`yield`关键字可以暂停`generator`函数返回的遍历器对象的状态
+
+```javascript
+function* helloWorldGenerator() {
+  yield 'hello';
+  yield 'world';
+  return 'ending';
+}
+var hw = helloWorldGenerator();
+```
+
+上述存在三个状态：`hello`、`world`、`return`
+
+通过`next`方法才会遍历到下一个内部状态，其运行逻辑如下：
+
+- 遇到`yield`表达式，就暂停执行后面的操作，并将紧跟在`yield`后面的那个表达式的值，作为返回的对象的`value`属性值。
+- 下一次调用`next`方法时，再继续往下执行，直到遇到下一个`yield`表达式
+- 如果没有再遇到新的`yield`表达式，就一直运行到函数结束，直到`return`语句为止，并将`return`语句后面的表达式的值，作为返回的对象的`value`属性值。
+- 如果该函数没有`return`语句，则返回的对象的`value`属性值为`undefined`
+
+```javascript
+hw.next()
+// { value: 'hello', done: false }
+
+hw.next()
+// { value: 'world', done: false }
+
+hw.next()
+// { value: 'ending', done: true }
+
+hw.next()
+// { value: undefined, done: true }
+```
+
+`done`用来判断是否存在下个状态，`value`对应状态值
+
+`yield`表达式本身没有返回值，或者说总是返回`undefined`
+
+通过调用`next`方法可以带一个参数，该参数就会被当作上一个`yield`表达式的返回值
+
+```javascript
+function* foo(x) {
+  var y = 2 * (yield (x + 1));
+  var z = yield (y / 3);
+  return (x + y + z);
+}
+
+var a = foo(5);
+a.next() // Object{value:6, done:false}
+a.next() // Object{value:NaN, done:false}
+a.next() // Object{value:NaN, done:true}
+
+var b = foo(5);
+b.next() // { value:6, done:false }
+b.next(12) // { value:8, done:false }
+b.next(13) // { value:42, done:true }
+```
+
+正因为`Generator`函数返回`Iterator`对象，因此我们还可以通过`for...of`进行遍历
+
+```javascript
+function* foo() {
+  yield 1;
+  yield 2;
+  yield 3;
+  yield 4;
+  yield 5;
+  return 6;
+}
+
+for (let v of foo()) {
+  console.log(v);
+}
+// 1 2 3 4 5
+```
+
+原生对象没有遍历接口，通过`Generator`函数为它加上这个接口，就能使用`for...of`进行遍历了
+
+```javascript
+function* objectEntries(obj) {
+  let propKeys = Reflect.ownKeys(obj);
+
+  for (let propKey of propKeys) {
+    yield [propKey, obj[propKey]];
+  }
+}
+
+let jane = { first: 'Jane', last: 'Doe' };
+
+for (let [key, value] of objectEntries(jane)) {
+  console.log(`${key}: ${value}`);
+}
+// first: Jane
+// last: Doe
+```
+
+### 三、异步解决方案
+
+回顾之前展开异步解决的方案：
+
+- 回调函数
+- Promise 对象
+- generator 函数
+- async/await
+
+这里通过文件读取案例，将几种解决异步的方案进行一个比较：
+
+#### 回调函数
+
+所谓回调函数，就是把任务的第二段单独写在一个函数里面，等到重新执行这个任务的时候，再调用这个函数
+
+```javascript
+fs.readFile('/etc/fstab', function (err, data) {
+  if (err) throw err;
+  console.log(data);
+  fs.readFile('/etc/shells', function (err, data) {
+    if (err) throw err;
+    console.log(data);
+  });
+});
+```
+
+`readFile`函数的第三个参数，就是回调函数，等到操作系统返回了`/etc/passwd`这个文件以后，回调函数才会执行
+
+#### Promise
+
+`Promise`就是为了解决回调地狱而产生的，将回调函数的嵌套，改成链式调用
+
+```js
+const fs = require('fs');
+
+const readFile = function (fileName) {
+  return new Promise(function (resolve, reject) {
+    fs.readFile(fileName, function(error, data) {
+      if (error) return reject(error);
+      resolve(data);
+    });
+  });
+};
+
+
+readFile('/etc/fstab').then(data =>{
+    console.log(data)
+    return readFile('/etc/shells')
+}).then(data => {
+    console.log(data)
+})
+```
+
+这种链式操作形式，使异步任务的两段执行更清楚了，但是也存在了很明显的问题，代码变得冗杂了，语义化并不强
+
+#### generator
+
+`yield`表达式可以暂停函数执行，`next`方法用于恢复函数执行，这使得`Generator`函数非常适合将异步任务同步化
+
+```javascript
+const gen = function* () {
+  const f1 = yield readFile('/etc/fstab');
+  const f2 = yield readFile('/etc/shells');
+  console.log(f1.toString());
+  console.log(f2.toString());
+};
+```
+
+#### async/await
+
+将上面`Generator`函数改成`async/await`形式，更为简洁，语义化更强了
+
+```js
+const asyncReadFile = async function () {
+  const f1 = await readFile('/etc/fstab');
+  const f2 = await readFile('/etc/shells');
+  console.log(f1.toString());
+  console.log(f2.toString());
+};
+```
+
+#### 区别
+
+通过上述代码进行分析，将`promise`、`Generator`、`async/await`进行比较：
+
+- `promise`和`async/await`是专门用于处理异步操作的
+- `Generator`并不是为异步而设计出来的，它还有其他功能（对象迭代、控制输出、部署`Interator`接口...）
+- `promise`编写代码相比`Generator`、`async`更为复杂化，且可读性也稍差
+
+- `Generator`、`async`需要与`promise`对象搭配处理异步情况
+- `async`实质是`Generator`的语法糖，相当于会自动执行`Generator`函数
+- `async`使用上更为简洁，将异步代码以同步的形式进行编写，是处理异步编程的最终方案
+
+### 四、使用场景
+
+`Generator`是异步解决的一种方案，最大特点则是将异步操作同步化表达出来
+
+```js
+function* loadUI() {
+  showLoadingScreen();
+  yield loadUIDataAsynchronously();
+  hideLoadingScreen();
+}
+var loader = loadUI();
+// 加载UI
+loader.next()
+
+// 卸载UI
+loader.next()
+```
+
+包括`redux-saga`中间件也充分利用了`Generator`特性
+
+```js
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import Api from '...'
+
+function* fetchUser(action) {
+   try {
+      const user = yield call(Api.fetchUser, action.payload.userId);
+      yield put({type: "USER_FETCH_SUCCEEDED", user: user});
+   } catch (e) {
+      yield put({type: "USER_FETCH_FAILED", message: e.message});
+   }
+}
+
+function* mySaga() {
+  yield takeEvery("USER_FETCH_REQUESTED", fetchUser);
+}
+
+function* mySaga() {
+  yield takeLatest("USER_FETCH_REQUESTED", fetchUser);
+}
+
+export default mySaga;
+```
+
+还能利用`Generator`函数，在对象上实现`Iterator`接口
+
+```js
+function* iterEntries(obj) {
+  let keys = Object.keys(obj);
+  for (let i=0; i < keys.length; i++) {
+    let key = keys[i];
+    yield [key, obj[key]];
+  }
+}
+
+let myObj = { foo: 3, bar: 7 };
+
+for (let [key, value] of iterEntries(myObj)) {
+  console.log(key, value);
+}
+
+// foo 3
+// bar 7
+```
