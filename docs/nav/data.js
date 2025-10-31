@@ -27,12 +27,6 @@ export const navData = [
         link: 'https://pinia.vuejs.org/zh'
       },
       {
-        icon: 'https://vueuse.org/favicon.svg',
-        title: 'VueUse',
-        desc: 'Vue Composition API 的常用工具集',
-        link: 'https://vueuse.org'
-      },
-      {
         icon: 'https://element-plus.org/images/element-plus-logo-small.svg',
         title: 'Element Plus',
         desc: '基于 Vue 3，面向设计师和开发者的组件库',
@@ -69,6 +63,12 @@ export const navData = [
         desc: '由抖音前端与 UED 团队维护，易于定制的现代化设计系统，帮助设计师与开发者打造高质量产品。'
       },
       {
+        title: 'Inspira UI',
+        link: 'https://inspira-ui.com/docs/zh-cn',
+        icon: 'https://cdn.inspira-ui.com/logo.svg',
+        desc: 'Inspira UI 是由 TailwindCSS, motion-v, gsap 和 threejs 提供支持的可重复使用动画组件的集合，旨在帮助您更快、更好地交付。'
+      },
+      {
         icon: 'https://fastly.jsdelivr.net/npm/@vant/assets/logo.png',
         title: 'Vant',
         desc: '轻量、可定制的移动端 Vue 组件库',
@@ -81,12 +81,6 @@ export const navData = [
         link: 'https://nutui.jd.com'
       },
       {
-        title: 'Varlet',
-        desc: 'varlet 是一个基于 Vue3 开发的 Material 风格移动端组件库，全面拥抱 Vue3 生态，由 varletjs 社区团队开发和维护。',
-        link: 'https://varlet.gitee.io/varlet-ui/#/zh-CN/home',
-        icon: 'https://varlet.gitee.io/varlet-ui/varlet_icon.png'
-      },
-      {
         icon: 'https://nuxt.com/icon.png',
         title: 'Nuxt.js',
         desc: '一个基于 Vue.js 的通用应用框架',
@@ -97,6 +91,30 @@ export const navData = [
         title: '无界',
         desc: '无界微前端方案基于 WebComponent 容器 + iframe 沙箱 能够完善的解决适配成本、样式隔离、运行性能、页面白屏、子应用通信、子应用保活、多应用激活、vite 框架支持、应用共享等',
         link: 'https://wujie-micro.github.io/doc/'
+      },
+      {
+        icon: 'https://vueuse.org/favicon.svg',
+        title: 'VueUse',
+        desc: 'Vue Composition API 的常用工具集',
+        link: 'https://vueuse.org'
+      },
+      {
+        title: 'Dayjs',
+        link: 'https://dayjs.fenxianglu.cn/',
+        icon: 'https://dayjs.fenxianglu.cn/assets/favicon.png',
+        desc: 'Day.js是一个极简的JavaScript库，可以为现代浏览器解析、验证、操作和显示日期和时间。'
+      },
+      {
+        title: 'Lodash',
+        link: 'https://www.lodashjs.com/',
+        icon: 'https://www.lodashjs.com/img/favicon.ico',
+        desc: 'Lodash 是一个一致性、模块化、高性能的 JavaScript 实用工具库。'
+      },
+      {
+        title: 'axios',
+        link: 'https://www.axios-http.cn/docs/intro',
+        icon: 'https://www.axios-http.cn/img/favicon.ico',
+        desc: 'Axios 是一个基于 promise 网络请求库，作用于node.js 和浏览器中。 它是 isomorphic 的(即同一套代码可以运行在浏览器和node.js中)。在服务端它使用原生 node.js http 模块, 而在客户端 (浏览端) 则使用 XMLHttpRequests。'
       }
     ]
   },
@@ -239,24 +257,7 @@ export const navData = [
         link: 'https://www.npmjs.com/',
         icon: 'https://static.npmjs.com/b0f1a8318363185cc2ea6a40ac23eeb2.png'
       },
-      {
-        title: 'Dayjs',
-        link: 'https://dayjs.fenxianglu.cn/',
-        icon: 'https://dayjs.fenxianglu.cn/assets/favicon.png',
-        desc: 'Day.js是一个极简的JavaScript库，可以为现代浏览器解析、验证、操作和显示日期和时间。'
-      },
-      {
-        title: 'Lodash',
-        link: 'https://www.lodashjs.com/',
-        icon: 'https://www.lodashjs.com/img/favicon.ico',
-        desc: 'Lodash 是一个一致性、模块化、高性能的 JavaScript 实用工具库。'
-      },
-      {
-        title: 'axios',
-        link: 'https://www.axios-http.cn/docs/intro',
-        icon: 'https://www.axios-http.cn/img/favicon.ico',
-        desc: 'Axios 是一个基于 promise 网络请求库，作用于node.js 和浏览器中。 它是 isomorphic 的(即同一套代码可以运行在浏览器和node.js中)。在服务端它使用原生 node.js http 模块, 而在客户端 (浏览端) 则使用 XMLHttpRequests。'
-      },
+
       {
         icon: 'https://caniuse.com/img/favicon-128.png',
         title: 'Can I use',
@@ -286,12 +287,6 @@ export const navData = [
         desc: '将代码转换成代码块',
         link: 'https://snippet-generator.app/',
         icon: 'https://snippet-generator.app/favicon-32x32.png'
-      },
-      {
-        title: 'carbon',
-        desc: '代码美化',
-        link: 'https://carbon.now.sh/',
-        icon: 'https://carbon.now.sh/favicon.ico'
       },
       {
         link: 'https://ray.so/',
@@ -358,6 +353,72 @@ export const navData = [
         link: 'https://www.bootcdn.cn/',
         icon: 'https://www.bootcdn.cn/assets/ico/favicon.ico?1694658481677',
         desc: '稳定、快速、免费的前端开源项目 CDN 加速服务'
+      },
+      {
+        title: 'ZLibrary',
+        link: 'hhttps://zh.z-library.sk',
+        icon: 'https://zh.z-library.se/favicon-32x32.svg?v=2',
+        desc: '电子书搜索引擎,好用'
+      },
+      {
+        link: 'https://acgn.ttson.cn/',
+        title: 'TTS-Online',
+        desc: '免费文字转语音，原神、英雄联盟、星穹铁道和日漫1000+角色'
+      },
+      {
+        link: 'https://ailogo.qq.com/',
+        title: 'ailogo',
+        desc: '10s创建你的logo，免费在线'
+      },
+      {
+        title: '删除背景',
+        link: 'https://www.remove.bg',
+        icon: 'https://www.remove.bg/favicon.ico'
+      },
+      {
+        title: '思维导图',
+        link: 'https://www.zhixi.com/',
+        icon: 'https://www.zhixi.com/favicon.ico'
+      },
+      {
+        title: '小鹿快传',
+        link: 'https://deershare.com/send',
+        icon: 'https://deershare.com/images/favicon.ico'
+      },
+      {
+        title: '擦除画面',
+        link: 'https://www.magiceraser.io/',
+        icon: ''
+      },
+      {
+        title: 'PDF去水印',
+        link: 'https://xpdf.cn/pdf-remove-watermark',
+        icon: 'https://xpdf.cn/favicon.ico'
+      },
+      {
+        title: 'PDF转Word',
+        link: 'https://www.alltoall.net/',
+        icon: ''
+      },
+      {
+        title: '图压',
+        link: 'https://tuya.xinxiao.tech/',
+        icon: 'https://tuya.xinxiao.tech/assets/favicon@2x.png?rv=4'
+      },
+      {
+        title: 'processon',
+        link: 'https://www.processon.com/',
+        icon: 'https://www.processon.com/public_login/favicon.983368c6.ico'
+      },
+      {
+        title: '一键抠图',
+        link: 'https://www.picup.shop/currencyBatch.html',
+        icon: ''
+      },
+      {
+        title: '去水印视频下载',
+        link: 'https://watermark.liumingye.cn/',
+        icon: ''
       }
     ]
   },
@@ -549,6 +610,12 @@ export const navData = [
         link: 'https://antv.vision/zh/'
       },
       {
+        icon: 'https://07.logic-flow.cn/new-logo.svg',
+        title: 'LogicFlow',
+        desc: '流程图，专注流程可视化的前端解决方案',
+        link: 'https://07.logic-flow.cn/'
+      },
+      {
         icon: 'https://d3js.org/logo.png',
         title: 'D3.js',
         desc: '一个遵循 Web 标准用于可视化数据的 JavaScript 库',
@@ -671,23 +738,6 @@ export const navData = [
     ]
   },
   {
-    title: '前端学习资料',
-    items: [
-      {
-        icon: 'https://developer.mozilla.org/apple-touch-icon.6803c6f0.png',
-        title: 'MDN | Web 开发者指南',
-        desc: 'Mozilla 的开发者平台，提供了大量关于 HTML、CSS 和 JavaScript 的详细文档以及广泛的 Web API 参考资',
-        link: 'https://developer.mozilla.org/zh-CN'
-      },
-      {
-        icon: 'http://es6.ruanyifeng.com/favicon.ico',
-        title: 'ES6 入门教程',
-        desc: '阮一峰的网络日志',
-        link: 'http://es6.ruanyifeng.com'
-      }
-    ]
-  },
-  {
     title: '社区',
     items: [
       {
@@ -741,84 +791,7 @@ export const navData = [
     ]
   },
   {
-    title: '工具',
-    items: [
-      {
-        title: 'ZLibrary',
-        link: 'https://zh.z-library.se/',
-        icon: 'https://zh.z-library.se/favicon-32x32.svg?v=2',
-        desc: '电子书搜索引擎,好用'
-      },
-      {
-        title: 'Liber3',
-        link: 'https://liber3.eth.limo/',
-        icon: '',
-        desc: '电子书搜索引擎'
-      },
-      {
-        link: 'https://acgn.ttson.cn/',
-        title: 'TTS-Online',
-        desc: '免费文字转语音，原神、英雄联盟、星穹铁道和日漫1000+角色'
-      },
-      {
-        link: 'https://ailogo.qq.com/',
-        title: 'ailogo',
-        desc: '10s创建你的logo，免费在线'
-      },
-      {
-        title: '删除背景',
-        link: 'https://www.remove.bg',
-        icon: 'https://www.remove.bg/favicon.ico'
-      },
-      {
-        title: '思维导图',
-        link: 'https://www.zhixi.com/',
-        icon: 'https://www.zhixi.com/favicon.ico'
-      },
-      {
-        title: '小鹿快传',
-        link: 'https://deershare.com/send',
-        icon: 'https://deershare.com/images/favicon.ico'
-      },
-      {
-        title: '擦除画面',
-        link: 'https://www.magiceraser.io/',
-        icon: ''
-      },
-      {
-        title: 'PDF去水印',
-        link: 'https://xpdf.cn/pdf-remove-watermark',
-        icon: 'https://xpdf.cn/favicon.ico'
-      },
-      {
-        title: 'PDF转Word',
-        link: 'https://www.alltoall.net/',
-        icon: ''
-      },
-      {
-        title: '图压',
-        link: 'https://tuya.xinxiao.tech/',
-        icon: 'https://tuya.xinxiao.tech/assets/favicon@2x.png?rv=4'
-      },
-      {
-        title: 'processon',
-        link: 'https://www.processon.com/',
-        icon: 'https://www.processon.com/public_login/favicon.983368c6.ico'
-      },
-      {
-        title: '一键抠图',
-        link: 'https://www.picup.shop/currencyBatch.html',
-        icon: ''
-      },
-      {
-        title: '去水印视频下载',
-        link: 'https://watermark.liumingye.cn/',
-        icon: ''
-      }
-    ]
-  },
-  {
-    title: '视频网站',
+    title: '好用网站',
     items: [
       {
         title: '低端影视 ',
@@ -827,24 +800,14 @@ export const navData = [
       },
       {
         title: '555电影',
-        link: 'https://www.o8tv.com',
+        link: 'https://www.5wuxnh.shop/vodtype/4.html',
         icon: ''
-      },
-      {
-        title: '异世界动漫',
-        link: 'https://ysjdm.net/',
-        icon: 'https://ysjdm.net/template/conch/asset/img/ios_fav.png'
       },
       {
         title: 'age动漫',
         link: 'https://www.agemys.net/',
         icon: ''
-      }
-    ]
-  },
-  {
-    title: '图片网站',
-    items: [
+      },
       {
         title: '免费商用图片 ',
         link: 'https://www.cc0.cn/',
@@ -859,12 +822,7 @@ export const navData = [
         title: '极简壁纸',
         link: 'https://bz.zzzmh.cn/index',
         icon: 'https://bz.zzzmh.cn/img/icons/favicon-32x32.png'
-      }
-    ]
-  },
-  {
-    title: '音乐下载',
-    items: [
+      },
       {
         title: '音乐外链获取 ',
         link: 'https://music.xf1433.com/',

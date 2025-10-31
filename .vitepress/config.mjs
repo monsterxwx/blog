@@ -117,6 +117,7 @@ export default defineConfig({
             { text: 'el-table表格列合并', link: '/docs/article/el-table表格列合并' },
             { text: '.gitignore无效解决方案', link: '/docs/article/.gitignore无效解决方案' },
             { text: 'vue常用hooks', link: '/docs/article/vue常用hooks' },
+            { text: '用这9个API提高页面性能', link: '/docs/article/用这9个API提高页面性能' },
           ],
         },
         {
