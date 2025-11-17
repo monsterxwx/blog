@@ -4,7 +4,6 @@ import { fileURLToPath, URL } from 'node:url'
 export default defineConfig({
   title: 'Monster-Blog',
   outDir: './dist',
-  base: './',
   lastUpdated: true,
   // 覆盖默认主题组件
   vite: {

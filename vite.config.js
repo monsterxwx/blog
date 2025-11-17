@@ -19,6 +19,7 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()]
     })
   ],
+  base: './',
   resolve: {
     extensions: ['.vue', '.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
     alias: {
