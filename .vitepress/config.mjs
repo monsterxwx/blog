@@ -17,6 +17,12 @@ export default defineConfig({
           )
         }
       ]
+    },
+    ssr: {
+      noExternal: ['element-plus']
+    },
+    optimizeDeps: {
+      include: ['element-plus']
     }
   },
   head: [
