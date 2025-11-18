@@ -20,7 +20,6 @@ export default defineConfig({
     })
   ],
   // base: './',
-  base: '/blob/',
   resolve: {
     extensions: ['.vue', '.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
     alias: {
