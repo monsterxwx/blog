@@ -26,7 +26,7 @@ export default defineConfig({
   },
   head: [
     [
-      'link', { rel: 'icon', href: '/blog/favicon.ico' }
+      'link', { rel: 'icon', href: '/favicon.ico' }
     ]
   ],
   themeConfig: {
@@ -85,16 +85,16 @@ export default defineConfig({
         items: [
           {
             text: 'UV-UI组件库',
-            link: 'https://monsterwx.gitee.io/uv-ui/',
+            link: 'https://monsterxwx.github.io/uv-ui/',
           },
-          {
-            text: 'vue3-element-admin模板',
-            link: 'https://monsterwx.gitee.io/vue3-element-plus-admin',
-          },
-          {
-            text: 'vue3-uniapp模板',
-            link: 'https://monsterwx.gitee.io/uniapp-vite-treasure-box',
-          },
+          // {
+          //   text: 'vue3-element-admin模板',
+          //   link: 'https://monsterwx.gitee.io/vue3-element-plus-admin',
+          // },
+          // {
+          //   text: 'vue3-uniapp模板',
+          //   link: 'https://monsterwx.gitee.io/uniapp-vite-treasure-box',
+          // },
 
         ]
       }
