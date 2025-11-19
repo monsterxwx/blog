@@ -363,7 +363,7 @@ formRef.value.validate()
 
 ::: code-group
 
-```vue [el-form.vue]
+```vue [components/BaseForm.vue]
 <template>
   <div class="base-form">
     <el-form

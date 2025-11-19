@@ -35,6 +35,148 @@ const list = Array.from({ length: 20 }).map((item, index) => {
   </BaseTable>
 </div>
 
+::: code-group
+
+```vue [main.vue]
+<script  setup>
+import {ElSwitch,ElButton} from 'element-plus'
+import BaseTable from '@/components/BaseTable/index.vue';
+import tableConfig from  './tableConfig.jsx'
+
+const list = Array.from({ length: 20 }).map((item, index) => {
+  return {
+    name: 'test' + index,
+    realname: index * 2,
+    cellphone: index * 3,
+    enable: true,
+    createAt: '2022-03-' + index,
+    updateAt: '2022-04-30答复奇偶的叫法欧舒丹即佛爱圣诞节佛山',
+    test1: 'test1',
+    test2: 'test2',
+    test3: 'test3',
+    more: 'more'
+  }
+})
+
+</script>
+
+<template>
+    <div class="w-100% h-500px">
+      <BaseTable :data="list" v-bind="tableConfig">
+        <template #status="scope">
+              <el-switch v-model="scope.row.enable" />
+        </template>
+        <template #handler>
+          <el-button>
+            hh
+          </el-button>
+        </template>
+      </BaseTable>
+    </div>
+</template>    
+
+```
+
+```jsx [tableConfig.jsx]
+import { ElButton, ElMessage } from 'element-plus'
+const tableConfig = {
+  columns: [
+    {
+      type: 'selection'
+    },
+    {
+      type: 'index'
+    },
+    {
+      prop: 'name',
+      label: '用户名'
+
+    },
+    {
+      prop: 'realname',
+      label: '真实姓名',
+      render: (scope) => {
+        return (
+          <ElButton
+            type="primary"
+            onClick={() => {
+              console.log(scope)
+              ElMessage.success('我是自定义内容')
+            }}
+          >
+            {scope.row.realname}
+          </ElButton>
+        )
+      }
+    },
+    {
+      prop: 'cellphone',
+      label: '手机号码'
+    },
+    {
+      prop: 'enable',
+      label: '状态',
+      slotName: 'status'
+    },
+    {
+      prop: 'createAt',
+      label: '创建时间',
+      slotName: 'createAt',
+      minWidth: '120'
+    },
+    {
+      prop: 'more',
+      minWidth: '130',
+      header: (scope) => {
+        return (
+          <ElButton>自定义表头</ElButton>
+        )
+      }
+    },
+    {
+      prop: 'updateAt',
+      label: '更新时间',
+      slotName: 'updateAt',
+      'show-overflow-tooltip': true
+    },
+    {
+      label: '多级表头',
+      header: (scope) => {
+        return (
+          <ElButton>自定义多级表头</ElButton>
+        )
+      },
+      children: [
+        {
+          prop: 'test1',
+          label: 'State',
+          width: '120'
+        }, {
+          prop: 'test2',
+          label: 'City',
+          width: '120'
+        }, {
+          prop: 'test3',
+          label: 'City2',
+          width: '120'
+        }
+      ]
+    },
+    {
+      label: '操作',
+      slotName: 'handler',
+      fixed: 'right'
+    }
+  ]
+}
+
+export default tableConfig
+
+
+```
+
+:::
+
 ## 使用
 
 ### 功能介绍
@@ -156,7 +298,7 @@ render: (scope) => {
 
 ::: code-group
 
-```vue [el-table.vue]
+```vue [components/BaseTable/index.vue]
 <template>
   <el-table
     ref="tableRef"
@@ -220,7 +362,7 @@ defineExpose({
 
 ```
 
-```vue [el-table-column.vue]
+```vue [components/BaseTable/el-table-column.vue]
 <template>
   <el-table-column
     v-if="col.type==='selection'"
