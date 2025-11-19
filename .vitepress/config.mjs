@@ -115,6 +115,7 @@ export default defineConfig({
         {
           text: '随笔',
           items: [
+            { text: '常用配置', link: '/docs/article/常用配置' },
             { text: '数组常用方法总结', link: '/docs/article/数组常用方法总结' },
             { text: '字符串方法总结', link: '/docs/article/字符串方法总结' },
             { text: '数组去重', link: '/docs/article/数组去重' },
@@ -122,6 +123,7 @@ export default defineConfig({
             { text: '大屏比例缩放方案', link: '/docs/article/大屏比例缩放方案' },
             { text: 'el-table表格列合并', link: '/docs/article/el-table表格列合并' },
             { text: '.gitignore无效解决方案', link: '/docs/article/gitignore无效解决方案' },
+            { text: 'vscode获取远程最新分支方法', link: '/docs/article/vscode无法获取远程最新分支解决方法' },
             { text: 'vue常用hooks', link: '/docs/article/vue常用hooks' },
             { text: '用这9个API提高页面性能', link: '/docs/article/用这9个API提高页面性能' },
           ],
@@ -182,7 +184,8 @@ export default defineConfig({
           link: '/docs/components/element/',
           items: [
             { text: 'el-table', link: '/docs/components/element/el-table' },
-            { text: 'el-form', link: '/docs/components/element/el-form' }
+            { text: 'el-form', link: '/docs/components/element/el-form' },
+            { text: 'el-select', link: '/docs/components/element/el-select' },
           ],
         },
       ],

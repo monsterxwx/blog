@@ -1,7 +1,7 @@
 ### 克隆远程仓库
 
 ```Shell
-$ git clone 项目的地址
+git clone 项目的地址
 ```
 
 ```Shell
@@ -18,13 +18,13 @@ Checking connectivity... done.
 如果想查看你已经配置的远程仓库服务器，可以运行 `git remote` 命令。 它会列出你指定的每一个远程服务器的简写。 如果你已经克隆了自己的仓库，那么至少应该能看到 origin ——这是 Git 给你克隆的仓库服务器的默认名字
 
 ```Shell
-$ git remote
+git remote
 ```
 
 你也可以指定选项 `-v`，会显示需要读写远程仓库使用的 Git 保存的简写与其对应的 URL。
 
 ```Shell
-$ git remote -v
+git remote -v
 
 ```
 
@@ -55,7 +55,7 @@ origin    git@github.com:mojombo/grit.git (push)
 添加一个新的远程 Git 仓库，同时指定一个方便使用的简写
 
 ```Shell
-$ git remote add pb https://github.com/paulboone/ticgit
+git remote add pb https://github.com/paulboone/ticgit
 ```
 
 ```Shell
@@ -69,7 +69,7 @@ pb  https://github.com/paulboone/ticgit (push)
 现在你可以在命令行中使用字符串 pb 来代替整个 URL。 例如，如果你想拉取 Paul 的仓库中有但你没有的信息，可以运行 `git fetch pb`
 
 ```Shell
-$ git fetch pb
+git fetch pb
 ```
 
 ```Shell
@@ -106,7 +106,7 @@ git config --global --unset https.proxy
 如果想要查看某一个远程仓库的更多信息，可以使用 `git remote show <remote>` 命令。 如果想以一个特定的缩写名运行这个命令，例如 `origin`，会得到像下面类似的信息
 
 ```Shell
-$ git remote show origin
+git remote show origin
 ```
 
 ```Shell
@@ -130,7 +130,7 @@ $ git remote show origin
 可以运行 `git remote rename` 来修改一个远程仓库的简写名。 例如，想要将 pb 重命名为 paul，可以用 `git remote rename` 这样做
 
 ```Shell
-$ git remote rename pb paul
+git remote rename pb paul
 
 ```
 
@@ -145,7 +145,7 @@ paul
 如果因为一些原因想要移除一个远程仓库——你已经从服务器上搬走了或不再想使用某一个特定的镜像了， 又或者某一个贡献者不再贡献了——可以使用 `git remote remove` 或 `git remote rm`
 
 ```Shell
-$ git remote remove paul
+git remote remove paul
 
 ```
 
@@ -156,3 +156,56 @@ origin
 
 一旦你使用这种方式删除了一个远程仓库，那么所有和这个远程仓库相关的远程跟踪分支以及配置信息也会一起被删除。
 
+### 撤销提交
+
+如果你已经把提交推送到远程仓库（比如 GitHub），**撤销上一次提交**需要小心操作，尤其是如果你不是唯一一个在使用这个分支。
+
+---
+
+✅ **推荐方式：使用 git revert（不会改写历史）**
+
+这是最安全的做法，适用于**公共分支（如 main、master）**。
+
+```bash
+git revert HEAD
+```
+
+这会创建一个新的提交，**撤销上一次提交的更改**，但不会修改历史记录。之后你可以正常推送到远程：
+
+```bash
+git push origin 你的分支名
+```
+
+---
+
+⚠️ **高风险方式：使用 git reset（会改写历史）**
+
+如果你**确定没有别人基于这个提交工作**，或者你在自己的分支上，可以用 `git reset` 强制回退：
+
+```bash
+# 回退到上一次提交之前，但保留更改在本地 
+git reset --soft HEAD~1
+
+# 或者彻底丢弃更改（慎用） 
+git reset --hard HEAD~1
+```
+
+然后强制推送到远程：
+
+```bash
+git push origin 你的分支名 --force
+```
+
+---
+
+⚠️ **注意：**
+
+- 如果你用的是 **共享分支**（比如团队都在用的 `main`），不要用 `--force`，会覆盖别人的历史。
+- 如果你已经 `reset --hard` 并强制推送了，**其他协作者需要重新拉取并处理冲突**。
+
+---
+
+✅ **总结一句话：**
+
+- **公共分支** → 用 `git revert`
+- **私人分支** → 可以用 `git reset --hard + git push --force`
