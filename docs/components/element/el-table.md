@@ -37,12 +37,12 @@ const list = Array.from({ length: 20 }).map((item, index) => {
 
 ## 使用
 
-::: tip 
-
 ### 功能介绍
+
 支持插槽，多级表头，render渲染，数据通过props中的`data`传入，表格列配置使用`columns`传入
 
 举例：
+
 ```js
 {
   data:[
@@ -139,8 +139,6 @@ render: (scope) => {
 
 ```
 
-:::
-
 ```html
 <BaseTable :data="list" v-bind="tableConfig">
   <template #status="scope">
@@ -154,9 +152,11 @@ render: (scope) => {
 </BaseTable>
 ```
 
-## el-table代码
+## 组件代码
 
-```vue
+::: code-group
+
+```vue [el-table.vue]
 <template>
   <el-table
     ref="tableRef"
@@ -220,9 +220,7 @@ defineExpose({
 
 ```
 
-## el-table-column代码
-
-```vue
+```vue [el-table-column.vue]
 <template>
   <el-table-column
     v-if="col.type==='selection'"
@@ -325,3 +323,5 @@ export default {
 
 
 ```
+
+:::
