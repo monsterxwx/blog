@@ -88,10 +88,10 @@ export default defineConfig({
             text: 'UV-UI组件库',
             link: 'https://monsterxwx.github.io/uv-ui/',
           },
-          // {
-          //   text: 'vue3-element-admin模板',
-          //   link: 'https://monsterwx.gitee.io/vue3-element-plus-admin',
-          // },
+          {
+            text: 'PrivacyBox在线工具箱',
+            link: 'https://www.monsterxwx.top/',
+          },
           // {
           //   text: 'vue3-uniapp模板',
           //   link: 'https://monsterwx.gitee.io/uniapp-vite-treasure-box',
@@ -132,7 +132,7 @@ export default defineConfig({
           text: '工具库使用',
           items: [
             { text: 'pnpm的使用', link: '/docs/article/pnpm的使用' },
-            { text: 'Day.js使用', link: '/docs/article/Day.js使用' },
+            { text: 'Day.js使用', link: '/docs/article/dayjs使用' },
             { text: 'Git使用', link: '/docs/article/Git使用' },
             { text: 'scss的基本用法', link: '/docs/article/scss的基本用法' },
             { text: '使用vite-plugin-svg-icons', link: '/docs/article/使用vite-plugin-svg-icons' },
