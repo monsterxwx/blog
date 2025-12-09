@@ -31,7 +31,11 @@
     "@mdit-vue/shared": "^1.0.0",
     "dayjs": "^1.11.10",
     "element-plus": "^2.11.8",
+    "katex": "^0.16.27",
+    "markstream-vue": "^0.0.2",
     "ol": "7.5.1",
+    "shiki": "^3.19.0",
+    "stream-markdown": "^0.0.11",
     "vue": "^3.3.4"
   }
 }

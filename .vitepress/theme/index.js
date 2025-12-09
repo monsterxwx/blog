@@ -7,6 +7,7 @@ if (typeof document !== 'undefined') {
 }
 import { h } from 'vue'
 import { useData } from 'vitepress'
+import FloatButton from './components/aiChatComp/index.vue'
 
 export default Object.assign({}, DefaultTheme, {
   Layout: () => {
@@ -17,7 +18,9 @@ export default Object.assign({}, DefaultTheme, {
     if (frontmatter.value?.layoutClass) {
       props.class = frontmatter.value.layoutClass
     }
-    return h(DefaultTheme.Layout, props)
+    return h(DefaultTheme.Layout, props, {
+      'layout-bottom': () => h(FloatButton)
+    })
   },
   enhanceApp({ app }) {
   },
