@@ -1,0 +1,1 @@
+import{ad as n,J as a}from"./index.3bfb1ce6.js";function u(e,t,s){return e==null?e:n(e,t,s)}const l=e=>Object.keys(e),o=(e,t,s)=>({get value(){return a(e,t,s)},set value(r){u(e,t,r)}});export{o as g,l as k};
