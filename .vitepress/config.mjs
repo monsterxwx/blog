@@ -92,11 +92,14 @@ export default defineConfig({
             text: 'PrivacyBox在线工具箱',
             link: 'https://www.monsterxwx.top/',
           },
-          // {
-          //   text: 'vue3-uniapp模板',
-          //   link: 'https://monsterwx.gitee.io/uniapp-vite-treasure-box',
-          // },
-
+          {
+            text: 'vue3-vite-admin模板',
+            link: 'https://monsterxwx.github.io/vue3-vite-admin/',
+          },
+          {
+            text: 'MovieHub',
+            link: 'https://movie.monsterxwx.top/',
+          }
         ]
       }
     ],
