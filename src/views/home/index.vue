@@ -1,164 +1,179 @@
 <template>
   <div
-    class="home-container relative w-full min-h-screen overflow-x-hidden transition-colors duration-500"
-    :class="isDark ? 'bg-[#020617] text-slate-200' : 'bg-slate-50 text-slate-800'"
-    @mousemove="onMouseMove"
+    class="glass-prism-container relative w-full transition-all duration-700 overflow-x-hidden"
+    :class="isDark ? 'bg-[#000] text-emerald-50' : 'bg-[#fff] text-emerald-950'"
+    @mousemove="handleMouseMove"
   >
-    <!-- Aurora Background Blobs -->
-    <div class="aurora-blobs fixed inset-0 overflow-hidden pointer-events-none">
-      <div
-        class="blob blob-1 absolute w-[800px] h-[800px] blur-[120px] rounded-full transition-all duration-700 ease-out"
-        :class="isDark ? 'bg-emerald-500/10' : 'bg-emerald-400/20'"
-        :style="blob1Style"
-      />
-      <div
-        class="blob blob-2 absolute w-[600px] h-[600px] blur-[100px] rounded-full transition-all duration-1000 ease-out"
-        :class="isDark ? 'bg-teal-400/5 shadow-[0_0_100px_rgba(16,185,129,0.1)]' : 'bg-teal-300/15'"
-        :style="blob2Style"
-      />
-      <div
-        class="blob blob-3 absolute w-[700px] h-[700px] blur-[140px] rounded-full transition-all duration-500 ease-out"
-        :class="isDark ? 'bg-green-600/10' : 'bg-green-200/30'"
-        :style="blob3Style"
+    <!-- Background Texture: Fine Grain -->
+    <div class="fixed inset-0 pointer-events-none opacity-[0.03] z-50 mix-blend-soft-light bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+
+    <!-- Grid Environment -->
+    <div 
+      class="absolute inset-0 pointer-events-none transition-opacity duration-1000"
+      :class="isDark ? 'opacity-[0.1]' : 'opacity-[0.05]'"
+    >
+      <div 
+        class="w-full h-full"
+        :style="gridStyle"
       />
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero-section relative z-10 flex flex-col items-center justify-center min-h-[90vh] px-4">
-      <div
-        class="hero-content text-center transition-all duration-1000 ease-out"
-        :class="showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'"
-      >
-        <TextWrite />
-        <p 
-          class="mt-6 text-lg md:text-xl max-w-2xl mx-auto font-light tracking-wide leading-relaxed opacity-80"
-          :class="isDark ? 'text-emerald-100' : 'text-slate-600'"
-        >
-          探索前沿技术，记录成长足迹，在逻辑与创意之间寻找平衡点。
-        </p>
-
-        <!-- Scroll Down Hint -->
-        <div
-          class="mt-16 animate-bounce cursor-pointer inline-flex flex-col items-center gap-2 group"
-          @click="scrollToFeatured"
-        >
-          <span 
-            class="text-xs uppercase tracking-[0.3em] font-medium transition-colors"
-            :class="isDark ? 'text-emerald-500/40 group-hover:text-emerald-400' : 'text-emerald-600/40 group-hover:text-emerald-600'"
-          >Discover</span>
-          <div 
-            class="w-6 h-10 border-2 rounded-full flex justify-center pt-2 transition-colors"
-            :class="isDark ? 'border-emerald-500/20 group-hover:border-emerald-500/40' : 'border-emerald-600/20 group-hover:border-emerald-600/40'"
-          >
-            <div class="w-1.5 h-2.5 bg-emerald-500 rounded-full animate-[scroll_2s_infinite]" />
-          </div>
+    <!-- Data HUD: Scrolling Hex Streams -->
+    <div class="absolute top-0 right-10 h-full w-20 pointer-events-none opacity-20 font-mono text-[8px] overflow-hidden hidden md:block">
+      <div class="animate-flow-vertical space-y-2 py-4">
+        <div v-for="i in 50" :key="i" class="text-emerald-500">
+          数据流_0x{{ (i * 1234).toString(16).toUpperCase() }}
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- Featured Modules Section -->
-    <section
-      id="featured"
-      class="featured-section relative z-10 w-full max-w-6xl mx-auto px-6 py-24"
-    >
-      <div
-        class="grid grid-cols-1 md:grid-cols-3 gap-8 transition-all duration-1000 delay-300"
-        :class="showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'"
-      >
-        <HomeCard
-          v-for="(card, index) in cards"
-          :key="index"
-          v-bind="card"
-          @click="navigateTo(card.link)"
-        >
-          <template #icon>
-            <span>{{ card.icon }}</span>
-          </template>
-        </HomeCard>
-      </div>
-    </section>
+    <!-- Scanning Sweep Line -->
+    <div class="fixed inset-0 pointer-events-none z-20 overflow-hidden">
+      <div class="w-[1px] h-full bg-emerald-400/20 blur-[2px] animate-sweep-horizontal shadow-[0_0_20px_rgba(16,185,129,0.2)]" />
+    </div>
 
-    <!-- Stats/Quote Section -->
-    <section 
-      class="relative z-10 w-full py-20 border-y transition-colors duration-500"
-      :class="isDark ? 'bg-emerald-950/20 border-emerald-500/5 backdrop-blur-sm' : 'bg-emerald-50/30 border-emerald-200/20 backdrop-blur-sm'"
-    >
-      <div class="max-w-4xl mx-auto text-center px-6">
-        <blockquote 
-          class="text-2xl md:text-3xl font-light italic leading-snug"
-          :class="isDark ? 'text-emerald-100/80' : 'text-slate-700'"
+    <!-- Main HUD Dashboard Content -->
+    <main class="relative z-10 w-full min-h-[calc(100vh-64px)] flex flex-col items-center justify-center px-4 py-12 md:px-8 md:py-0">
+      <!-- Prismatic Header -->
+      <header class="mb-6 md:mb-16 text-center space-y-4">
+        <div 
+          class="inline-flex items-center gap-3 px-3 py-1 border border-emerald-500/20 rounded-sm text-[8px] md:text-[10px] tracking-[0.5em] uppercase font-bold transition-all"
+          :class="isDark ? 'bg-emerald-500/10' : 'bg-emerald-50/50'"
         >
-          "Code is like humor. When you have to explain it, it’s bad."
-        </blockquote>
-        <p class="mt-4 text-emerald-500/60 uppercase tracking-widest text-sm font-semibold">— Cory House</p>
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          个人知识库系统
+          <span class="opacity-40">系统状态: 良好</span>
+        </div>
+        
+        <div class="relative group">
+          <h1 
+            class="text-4xl md:text-8xl font-black tracking-tighter uppercase transition-all duration-300 group-hover:glitch"
+            :data-text="isDark ? '怪兽·档案馆' : '怪兽·档案馆'"
+            :class="isDark ? 'text-shadow-hologram' : 'text-slate-900'"
+          >
+            怪兽<span class="text-emerald-500 opacity-60">·</span>档案馆
+          </h1>
+          <div class="mt-2 flex justify-center gap-1 opacity-20">
+            <div v-for="i in 8" :key="i" class="w-4 h-[2px] bg-emerald-500" />
+          </div>
+        </div>
+
+        <p 
+          class="text-[10px] md:text-sm font-light tracking-[0.4em] uppercase opacity-40 transition-opacity hover:opacity-100"
+          :class="isDark ? 'text-emerald-200' : 'text-slate-600'"
+        >
+          在逻辑与创意之间寻找精妙的平衡
+        </p>
+      </header>
+
+      <!-- Symmetrical Glass Dashboard -->
+      <div class="relative w-full max-w-5xl transition-all duration-1000">
+        <!-- Center Axis Decoration (Fixed position) -->
+        <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 pointer-events-none hidden md:block">
+          <div class="w-full h-[1px] bg-emerald-500/10" />
+        </div>
+        <div class="absolute inset-y-0 left-1/2 -translate-x-1/2 pointer-events-none hidden md:block">
+          <div class="h-full w-[1px] bg-emerald-500/10" />
+        </div>
+        <!-- Center Hub Node -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 border border-emerald-500/20 rotate-45 pointer-events-none hidden md:flex items-center justify-center bg-black/80 backdrop-blur-sm z-30">
+          <div class="w-1.5 h-1.5 bg-emerald-500/40 rounded-full animate-pulse" />
+        </div>
+
+        <!-- 2x2 Symmetrical Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 h-auto">
+          <GlassSlab
+            v-for="(panel, index) in panels"
+            :key="panel.title"
+            v-bind="panel"
+            :slab-id="panel.id"
+            :is-dark="isDark"
+            class="h-[180px] md:h-[220px]"
+            @navigate="navigateTo(panel.link)"
+          >
+            <template #icon><SciFiIcon :type="panel.iconType" /></template>
+          </GlassSlab>
+        </div>
       </div>
-    </section>
+
+      <!-- HUD UI Accents -->
+      <div class="fixed bottom-8 left-8 space-y-1 font-mono text-[8px] md:text-[10px] uppercase opacity-40 hidden md:block">
+        <div class="flex items-center gap-2">
+          <div class="w-2 h-2 border border-emerald-500 rounded-px" />
+          <span>光标_X: {{ mouse.x.toFixed(4) }}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-2 h-2 border border-emerald-500 rounded-px" />
+          <span>光标_Y: {{ mouse.y.toFixed(4) }}</span>
+        </div>
+      </div>
+
+      <div class="fixed top-1/2 -right-4 -translate-y-1/2 flex flex-col gap-4 opacity-20 hidden md:flex">
+        <div v-for="i in 10" :key="i" class="w-8 h-[1px] bg-emerald-500" />
+      </div>
+    </main>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, reactive, computed } from 'vue'
 import { useData } from 'vitepress'
-import TextWrite from '@/components/TextWrite.vue'
-import HomeCard from '@/components/HomeCard.vue'
+import GlassSlab from '@/components/GlassSlab.vue'
+import SciFiIcon from '@/components/SciFiIcon.vue'
 
 const { isDark } = useData()
 const showContent = ref(false)
 const mouse = reactive({ x: 0, y: 0 })
 
-const cards = [
-  {
-    title: '文章专栏',
-    description: '深入浅出的技术干货，记录成长的点点滴滴。',
-    icon: '📝',
-    link: '/blog/docs/article/数组常用方法总结'
+const panels = [
+  { 
+    title: '技术专栏', 
+    subTitle: '深度技术博文与源码仓库', 
+    id: '文_ARTICLE_01',
+    iconType: 'article', 
+    link: '/blog/docs/article/数组常用方法总结' 
   },
-  {
-    title: '旅行足迹',
-    description: '代码之外的世界，那些走过的山川与湖海。',
-    icon: '🗺️',
-    link: '/blog/docs/map'
+  { 
+    title: '世界地图', 
+    subTitle: '探索足迹与旅行随笔', 
+    id: '迹_TRACE_02',
+    iconType: 'map', 
+    link: '/blog/docs/map' 
   },
-  {
-    title: '面试宝典',
-    description: '系统化的面试知识库，助力斩获心仪 Offer。',
-    icon: '💡',
-    link: '/blog/docs/interview/html'
+  { 
+    title: '面试宝典', 
+    subTitle: '面试宝典与逻辑碎片', 
+    id: '宝_INDEX_03',
+    iconType: 'brain', 
+    link: '/blog/docs/interview/html' 
+  },
+  { 
+    title: '资源导览', 
+    subTitle: '快捷入口与资源导航', 
+    id: '导_PORTAL_04',
+    iconType: 'nav', 
+    link: '/blog/docs/nav/index' 
   }
 ]
 
-onMounted(() => {
-  setTimeout(() => {
-    showContent.value = true
-  }, 100)
-})
-
-const onMouseMove = (e) => {
+const handleMouseMove = (e) => {
   mouse.x = (e.clientX / window.innerWidth - 0.5) * 2
   mouse.y = (e.clientY / window.innerHeight - 0.5) * 2
 }
 
-const blob1Style = computed(() => ({
-  transform: `translate(${mouse.x * 60}px, ${mouse.y * 60}px)`,
-  left: '-10%',
-  top: '10%'
+const gridStyle = computed(() => ({
+  background: `linear-gradient(to right, ${isDark.value ? '#10b981' : '#022c22'} 1px, transparent 1px), 
+               linear-gradient(to bottom, ${isDark.value ? '#10b981' : '#022c22'} 1px, transparent 1px)`,
+  backgroundSize: '40px 40px',
+  transform: `translate(${mouse.x * 20}px, ${mouse.y * 20}px)`
 }))
 
-const blob2Style = computed(() => ({
-  transform: `translate(${mouse.x * -40}px, ${mouse.y * -40}px)`,
-  right: '5%',
-  bottom: '10%'
-}))
-
-const blob3Style = computed(() => ({
-  transform: `translate(${mouse.x * 30}px, ${mouse.y * -50}px)`,
-  left: '40%',
-  top: '40%'
-}))
-
-const scrollToFeatured = () => {
-  document.getElementById('featured')?.scrollIntoView({ behavior: 'smooth' })
-}
+onMounted(() => {
+  window.addEventListener('mousemove', handleMouseMove)
+  setTimeout(() => {
+    showContent.value = true
+  }, 100)
+})
 
 const navigateTo = (link) => {
   window.location.href = link
@@ -166,31 +181,70 @@ const navigateTo = (link) => {
 </script>
 
 <style scoped>
-.home-container {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+.glass-prism-container {
+  font-family: 'Inter', -apple-system, sans-serif;
+  width: 100%;
+  /* 桌面端高度固定，移动端自适应 */
+  height: calc(100vh - 64px);
+  overflow-y: hidden;
 }
 
-.blob {
-  will-change: transform;
+@media (max-width: 768px) {
+  .glass-prism-container {
+    height: auto;
+    min-height: calc(100vh - 64px);
+    overflow-y: auto;
+  }
 }
 
-@keyframes scroll {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(12px); opacity: 0; }
+.text-shadow-hologram {
+  position: relative;
+  text-shadow: 
+    -2px 0 #10b98155, 
+    2px 0 #34d39944,
+    0 0 20px rgba(16, 185, 129, 0.4);
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+@keyframes glitch {
+  0% { transform: translate(0) skew(0); }
+  20% { transform: translate(-2px, 2px) skew(2deg); }
+  40% { transform: translate(-2px, -2px) skew(-2deg); }
+  60% { transform: translate(2px, 2px) skew(10deg); }
+  80% { transform: translate(2px, -2px) skew(-10deg); }
+  100% { transform: translate(0) skew(0); }
 }
-::-webkit-scrollbar-track {
-  background: transparent;
+
+.glitch:hover {
+  animation: glitch 0.3s infinite;
 }
-::-webkit-scrollbar-thumb {
-  background: #10b98133;
-  border-radius: 4px;
+
+@keyframes sweep-horizontal {
+  0% { transform: translateX(-100vw); }
+  100% { transform: translateX(100vw); }
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #10b98166;
+
+.animate-sweep-horizontal {
+  animation: sweep-horizontal 12s linear infinite;
+}
+
+@keyframes flow-vertical {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+.animate-flow-vertical {
+  animation: flow-vertical 20s linear infinite;
+}
+
+:deep(.VPNavBar) {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.1) !important;
+}
+
+@media (max-width: 768px) {
+  .text-shadow-hologram {
+    font-size: 2.2rem;
+  }
 }
 </style>

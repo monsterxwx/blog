@@ -4,3 +4,9 @@
 .VPNavBarTitle {
   user-select: none;
 }
+
+/* Ensure navbar matches pure black homepage in dark mode */
+.dark {
+  --vp-nav-bg-color: #000000 !important;
+  --vp-nav-screen-bg-color: #000000 !important;
+}
