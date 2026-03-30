@@ -416,6 +416,7 @@ defineExpose({
   <el-table-column
     v-else
     :label="col.label"
+    v-bind="col"
   >
     <template
       #header
