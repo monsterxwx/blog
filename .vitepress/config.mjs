@@ -90,7 +90,7 @@ export default defineConfig({
           },
           {
             text: 'PrivacyBox在线工具箱',
-            link: 'https://www.monsterxwx.top/',
+            link: 'https://monsterxwx.github.io/PrivacyBox/',
           },
           {
             text: 'vue3-vite-admin模板',

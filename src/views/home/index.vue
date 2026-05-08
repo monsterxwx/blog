@@ -8,11 +8,11 @@
     <div class="fixed inset-0 pointer-events-none opacity-[0.03] z-50 mix-blend-soft-light bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
     <!-- Grid Environment -->
-    <div 
+    <div
       class="absolute inset-0 pointer-events-none transition-opacity duration-1000"
       :class="isDark ? 'opacity-[0.1]' : 'opacity-[0.05]'"
     >
-      <div 
+      <div
         class="w-full h-full"
         :style="gridStyle"
       />
@@ -21,7 +21,11 @@
     <!-- Data HUD: Scrolling Hex Streams -->
     <div class="absolute top-0 right-10 h-full w-20 pointer-events-none opacity-20 font-mono text-[8px] overflow-hidden hidden md:block">
       <div class="animate-flow-vertical space-y-2 py-4">
-        <div v-for="i in 50" :key="i" class="text-emerald-500">
+        <div
+          v-for="i in 50"
+          :key="i"
+          class="text-emerald-500"
+        >
           数据流_0x{{ (i * 1234).toString(16).toUpperCase() }}
         </div>
       </div>
@@ -35,36 +39,6 @@
     <!-- Main HUD Dashboard Content -->
     <main class="relative z-10 w-full min-h-[calc(100vh-64px)] flex flex-col items-center justify-center px-4 py-12 md:px-8 md:py-0">
       <!-- Prismatic Header -->
-      <header class="mb-6 md:mb-16 text-center space-y-4">
-        <div 
-          class="inline-flex items-center gap-3 px-3 py-1 border border-emerald-500/20 rounded-sm text-[8px] md:text-[10px] tracking-[0.5em] uppercase font-bold transition-all"
-          :class="isDark ? 'bg-emerald-500/10' : 'bg-emerald-50/50'"
-        >
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          个人知识库系统
-          <span class="opacity-40">系统状态: 良好</span>
-        </div>
-        
-        <div class="relative group">
-          <h1 
-            class="text-4xl md:text-8xl font-black tracking-tighter uppercase transition-all duration-300 group-hover:glitch"
-            :data-text="isDark ? '怪兽·档案馆' : '怪兽·档案馆'"
-            :class="isDark ? 'text-shadow-hologram' : 'text-slate-900'"
-          >
-            怪兽<span class="text-emerald-500 opacity-60">·</span>档案馆
-          </h1>
-          <div class="mt-2 flex justify-center gap-1 opacity-20">
-            <div v-for="i in 8" :key="i" class="w-4 h-[2px] bg-emerald-500" />
-          </div>
-        </div>
-
-        <p 
-          class="text-[10px] md:text-sm font-light tracking-[0.4em] uppercase opacity-40 transition-opacity hover:opacity-100"
-          :class="isDark ? 'text-emerald-200' : 'text-slate-600'"
-        >
-          在逻辑与创意之间寻找精妙的平衡
-        </p>
-      </header>
 
       <!-- Symmetrical Glass Dashboard -->
       <div class="relative w-full max-w-5xl transition-all duration-1000">
@@ -91,7 +65,9 @@
             class="h-[180px] md:h-[220px]"
             @navigate="navigateTo(panel.link)"
           >
-            <template #icon><SciFiIcon :type="panel.iconType" /></template>
+            <template #icon>
+              <SciFiIcon :type="panel.iconType" />
+            </template>
           </GlassSlab>
         </div>
       </div>
@@ -109,7 +85,11 @@
       </div>
 
       <div class="fixed top-1/2 -right-4 -translate-y-1/2 flex flex-col gap-4 opacity-20 hidden md:flex">
-        <div v-for="i in 10" :key="i" class="w-8 h-[1px] bg-emerald-500" />
+        <div
+          v-for="i in 10"
+          :key="i"
+          class="w-8 h-[1px] bg-emerald-500"
+        />
       </div>
     </main>
   </div>
@@ -126,33 +106,29 @@ const showContent = ref(false)
 const mouse = reactive({ x: 0, y: 0 })
 
 const panels = [
-  { 
-    title: '技术专栏', 
-    subTitle: '深度技术博文与源码仓库', 
+  {
+    title: '技术专栏',
     id: '文_ARTICLE_01',
-    iconType: 'article', 
-    link: '/blog/docs/article/数组常用方法总结' 
+    iconType: 'article',
+    link: '/blog/docs/article/数组常用方法总结'
   },
-  { 
-    title: '世界地图', 
-    subTitle: '探索足迹与旅行随笔', 
+  {
+    title: '世界地图',
     id: '迹_TRACE_02',
-    iconType: 'map', 
-    link: '/blog/docs/map' 
+    iconType: 'map',
+    link: '/blog/docs/map'
   },
-  { 
-    title: '面试宝典', 
-    subTitle: '面试宝典与逻辑碎片', 
+  {
+    title: '面试宝典',
     id: '宝_INDEX_03',
-    iconType: 'brain', 
-    link: '/blog/docs/interview/html' 
+    iconType: 'brain',
+    link: '/blog/docs/interview/html'
   },
-  { 
-    title: '资源导览', 
-    subTitle: '快捷入口与资源导航', 
+  {
+    title: '资源导览',
     id: '导_PORTAL_04',
-    iconType: 'nav', 
-    link: '/blog/docs/nav/index' 
+    iconType: 'nav',
+    link: '/blog/docs/nav/index'
   }
 ]
 
@@ -182,27 +158,27 @@ const navigateTo = (link) => {
 
 <style scoped>
 .glass-prism-container {
-  font-family: 'Inter', -apple-system, sans-serif;
+  overflow-y: hidden;
   width: 100%;
+
   /* 桌面端高度固定，移动端自适应 */
   height: calc(100vh - 64px);
-  overflow-y: hidden;
+  font-family: Inter, -apple-system, sans-serif;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .glass-prism-container {
+    overflow-y: auto;
     height: auto;
     min-height: calc(100vh - 64px);
-    overflow-y: auto;
   }
 }
-
 .text-shadow-hologram {
   position: relative;
-  text-shadow: 
-    -2px 0 #10b98155, 
+  text-shadow:
+    -2px 0 #10b98155,
     2px 0 #34d39944,
-    0 0 20px rgba(16, 185, 129, 0.4);
+    0 0 20px rgb(16 185 129 / 40%);
 }
 
 @keyframes glitch {
@@ -213,7 +189,6 @@ const navigateTo = (link) => {
   80% { transform: translate(2px, -2px) skew(-10deg); }
   100% { transform: translate(0) skew(0); }
 }
-
 .glitch:hover {
   animation: glitch 0.3s infinite;
 }
@@ -222,7 +197,6 @@ const navigateTo = (link) => {
   0% { transform: translateX(-100vw); }
   100% { transform: translateX(100vw); }
 }
-
 .animate-sweep-horizontal {
   animation: sweep-horizontal 12s linear infinite;
 }
@@ -231,18 +205,16 @@ const navigateTo = (link) => {
   from { transform: translateY(0); }
   to { transform: translateY(-50%); }
 }
-
 .animate-flow-vertical {
   animation: flow-vertical 20s linear infinite;
 }
-
 :deep(.VPNavBar) {
+  border-bottom: 1px solid rgb(16 185 129 / 10%) !important;
   background: transparent !important;
   backdrop-filter: none !important;
-  border-bottom: 1px solid rgba(16, 185, 129, 0.1) !important;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .text-shadow-hologram {
     font-size: 2.2rem;
   }
